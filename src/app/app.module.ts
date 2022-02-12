@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NavigationComponent } from './navigation/navigation.component';
+import { NavigationComponent } from './component/navigation/navigation.component';
 
 @NgModule({
   declarations: [
