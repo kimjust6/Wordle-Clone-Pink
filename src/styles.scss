@@ -3,5 +3,9 @@
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 
+$words-margin: 4px;
+$words-box-size: 60px;
+$words-border-color: grey;
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -1,12 +1,47 @@
+@import "../../../styles.scss";
+
 .container{
     display: flex;
-
+    
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+    flex-direction: column;
+    
     .fullWord{
-        .singLetter{
-            li{
-                list-style: none;
-            }
+        // background-color: pink;
+        ul{
+            column-count: 5;
+            display: flex;
+            list-style: none;
+            // background-color: pink;
+            margin: 0;
+            padding: 0;
             
+            .letterContainer{
+                
+                .singleLetter{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: x-large;
+                    
+                    border: 2px;
+                    border-style: solid;
+                    border-color: $words-border-color;
+
+
+                    margin-top: $words-margin + $words-margin;
+                    margin-left: $words-margin;
+                    margin-right: $words-margin;
+                    min-width: $words-box-size;
+                    min-height: $words-box-size;
+                    
+                }
+            }
         }
+
+        
     }
 }
+
