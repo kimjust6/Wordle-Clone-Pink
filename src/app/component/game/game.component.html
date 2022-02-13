@@ -1,8 +1,18 @@
 <div class="container">
-  
-    <div className="fullWord" *ngFor="let fullWord of array">
-      <a *ngFor="let letters of fullWord.word; let index = index" >
-        <li className="singleLetter" key = "{ letters.key }" >{{ letters.letter }}</li>
-      </a>
-    </div>
+  <div class="fullWord" *ngFor="let fullWord of array">
+    <ul>
+        
+      <div *ngFor="let letters of fullWord.word; let index = index">
+        <div class="letterContainer">
+          <a>
+            <li class="singleLetter" key="{ letters.key }; let nice = index">
+              {{ letters.letter }}
+              
+            </li>
+          </a>
+        </div>
+      </div>
+
+    </ul>
+  </div>
 </div>
