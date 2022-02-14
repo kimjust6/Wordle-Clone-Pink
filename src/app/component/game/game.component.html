@@ -1,18 +1,20 @@
 <div class="container">
+  <div class="errorSpaceHolder">
+    <div *ngIf="errorMessage !== ''" class="alert alert-danger" role="alert">
+      {{ errorMessage }}
+    </div>
+  </div>
   <div class="fullWord" *ngFor="let fullWord of array">
     <ul>
-        
       <div *ngFor="let letters of fullWord.word; let index = index">
         <div class="letterContainer">
           <a>
             <li class="singleLetter" key="{ letters.key }; let nice = index">
               {{ letters.letter }}
-              
             </li>
           </a>
         </div>
       </div>
-
     </ul>
   </div>
 </div>

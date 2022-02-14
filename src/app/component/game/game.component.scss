@@ -7,7 +7,9 @@
     align-items: center;
     height: 70vh;
     flex-direction: column;
-    
+    .errorSpaceHolder{
+        min-height: 70px;
+    }
     .fullWord{
         // background-color: pink;
         ul{
