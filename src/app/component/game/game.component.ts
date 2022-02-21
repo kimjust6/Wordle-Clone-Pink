@@ -18,6 +18,7 @@ export class GameComponent implements OnInit {
   wordCount: number = 0;
   letterCount: number = 0;
   errorMessage:string = '';
+  wordleAnswer: string = 'CRANE';
 
   setErrorMessage(message: string){
     this.errorMessage = message;
@@ -97,7 +98,7 @@ export class GameComponent implements OnInit {
     if ( this.letterCount < this.maxLetterCount )
     {
       //handle not enough letters
-      this.setErrorMessage("Please enter enough letters.")
+      this.setErrorMessage("Not enough letters.")
     }
     //not working currently
     else if(this.wordCount == this.maxWordCount)
@@ -116,7 +117,7 @@ export class GameComponent implements OnInit {
       }
       //if word is invalid set error message
       else{         
-          this.setErrorMessage("Please enter a valid word!");
+          this.setErrorMessage("Not in word list!");
       }
       
     }
@@ -133,10 +134,7 @@ export class GameComponent implements OnInit {
       theGuessWord = theGuessWord.concat(this.array[this.wordCount].word[i].letter);
     }
    
-   
     for (let [key,value] of Object.entries(wordleWords)){
-
-
       if (value.wordle.toString().toUpperCase() == theGuessWord.toUpperCase())
       {
         

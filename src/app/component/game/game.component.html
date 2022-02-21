@@ -9,7 +9,7 @@
       <div *ngFor="let letters of fullWord.word; let index = index">
         <div class="letterContainer">
           <a>
-            <li class="singleLetter" key="{ letters.key }; let nice = index">
+            <li class="singleLetter"  key="{ letters.key }; let innerIndex = index">
               {{ letters.letter }}
             </li>
           </a>

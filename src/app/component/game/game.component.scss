@@ -1,8 +1,8 @@
 @import "../../../styles.scss";
 
 .container{
+    transition-duration: 1s;
     display: flex;
-    
     justify-content: center;
     align-items: center;
     height: 70vh;
@@ -11,17 +11,21 @@
         min-height: 70px;
     }
     .fullWord{
+        ul:hover{
+            animation: sideToSide 0.20s;
+            animation-iteration-count: 2;
+        }
         // background-color: pink;
         ul{
+            
             column-count: 5;
             display: flex;
             list-style: none;
             // background-color: pink;
             margin: 0;
             padding: 0;
-            
             .letterContainer{
-                
+
                 .singleLetter{
                     display: flex;
                     justify-content: center;
@@ -31,8 +35,6 @@
                     border: 2px;
                     border-style: solid;
                     border-color: $words-border-color;
-
-
                     margin-top: $words-margin + $words-margin;
                     margin-left: $words-margin;
                     margin-right: $words-margin;
@@ -40,10 +42,26 @@
                     min-height: $words-box-size;
                     
                 }
+                #halfCorrect{
+                    background-color: yellow;
+                }
+                #fullCorrect{
+                    background-color: green;
+                }
+                #incorrect{
+                    background-color: lightgrey;
+                }
             }
         }
-
-        
     }
 }
 
+
+
+@keyframes sideToSide {
+    0% { transform: translate(5%, 0px);}
+    25% { transform: translate(-5%, 0px);}
+    50% { transform: translate(5%, 0px);}
+    75% { transform: translate(-5%, 0px); }
+    100% { transform: translate(0px, 0px);}
+  }
