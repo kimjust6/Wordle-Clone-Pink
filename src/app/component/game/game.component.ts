@@ -47,6 +47,7 @@ export class GameComponent implements OnInit {
   letterCount: number = 0;
   errorMessage:string = '';
   wordleAnswer: string = 'CRANE';
+  correctness = "";
 
   setErrorMessage(message: string){
     this.errorMessage = message;
@@ -63,7 +64,7 @@ export class GameComponent implements OnInit {
       //setup the array and get uuids for each element
       this.word = [];
       for (var j = 0; j < 5; j++) {
-        this.word.push({ letter: '', key: uuidv4() });
+        this.word.push({ letter: '', key: uuidv4(), correctness: "" });
       }
       this.array.push({ word: this.word, shakeState: "noShake" });
     }
@@ -90,6 +91,8 @@ export class GameComponent implements OnInit {
     }
     // check for backpsace
     else if( !event.repeat && event.key == "Backspace" ) {
+      this.errorMessage="";
+      this.array[this.wordCount].shakeState = "noShake";
     	this.handleBackspace();
     }
     // check for enter key
@@ -192,7 +195,43 @@ export class GameComponent implements OnInit {
   handleValidWord()
   {
 
+    console.log(this.array[this.wordCount].word);
+    //make it grey
+    for ( var i = 0; i < this.maxLetterCount; i++ )
+    {
+      for (var j = 0; j < this.maxLetterCount; j++)
+      {
+        this.array[this.wordCount].word[i].correctness = "incorrect";
+      }
+    }
+
+
+    for ( var i = 0; i < this.maxLetterCount; i++ )
+    {
+      for (var j = 0; j < this.maxLetterCount; j++)
+      {
+        //make it yellow
+        if (this.array[this.wordCount].word[i].letter == this.wordleAnswer.charAt(j))
+        {
+          this.array[this.wordCount].word[i].correctness = "halfCorrect";
+        }
+
+        
+      }
+    }
+
+
+    for (var i = 0; i < this.maxLetterCount; i++)
+    {
+      //make it green
+      if (this.array[this.wordCount].word[i].letter == this.wordleAnswer.charAt(i))
+      {
+        this.array[this.wordCount].word[i].correctness = "fullCorrect";
+      }
+      
+    }
   }
+
 
   //returns the colour that the box should be
   getColour(wordPosition: number)
