@@ -27,12 +27,14 @@
             .letterContainer{
 
                 .singleLetter{
+                    color: black;
                     display: flex;
                     justify-content: center;
                     align-items: center;
                     font-size: x-large;
                     
                     border: 2px;
+                    font-weight: 600;
                     border-style: solid;
                     border-color: $words-border-color;
                     margin-top: $words-margin + $words-margin;
@@ -43,13 +45,16 @@
                     
                 }
                 #halfCorrect{
-                    background-color: yellow;
+                    background-color: $halfCorrect;
+                    color: white;
                 }
                 #fullCorrect{
-                    background-color: green;
+                    background-color: $fullCorrect;
+                    color: white;
                 }
                 #incorrect{
-                    background-color: lightgrey;
+                    background-color: $incorrect;
+                    color: white;
                 }
             }
         }
@@ -58,10 +63,3 @@
 
 
 
-@keyframes sideToSide {
-    0% { transform: translate(5%, 0px);}
-    25% { transform: translate(-5%, 0px);}
-    50% { transform: translate(5%, 0px);}
-    75% { transform: translate(-5%, 0px); }
-    100% { transform: translate(0px, 0px);}
-  }

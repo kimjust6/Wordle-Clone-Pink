@@ -7,15 +7,15 @@
   <div class="fullWord" *ngFor="let fullWord of array" >
     <ul [@animateState]="fullWord.shakeState">
       
-      <!-- <div *ngFor="let letters of fullWord.word; let index = index" [@animateState]="fullWord.shakeState"> -->
+      
       <div *ngFor="let letters of fullWord.word; let index = index" >
         
         <div class="letterContainer">
-          <a>
-            <li class="singleLetter"  key="{ letters.key }; let innerIndex = index">
+          <div>
+            <li class="singleLetter" [id]="letters.correctness" key="{ letters.key }; let innerIndex = index">
               {{ letters.letter }}
             </li>
-          </a>
+          </div>
         </div>
       </div>
     </ul>

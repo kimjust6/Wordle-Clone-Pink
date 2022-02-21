@@ -6,6 +6,11 @@
 $words-margin: 4px;
 $words-box-size: 60px;
 $words-border-color: grey;
+$fullCorrect: #5ec73e;
+$halfCorrect: rgb(255, 216, 42);
+$incorrect: rgb(139, 139, 139);
+
+
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
