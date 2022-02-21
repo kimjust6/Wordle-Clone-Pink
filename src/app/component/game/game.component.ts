@@ -3,13 +3,41 @@ import { HostListener } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
 import wordleWords from '../../resources/words.json';
 
-
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+  keyframes
+} from '@angular/animations';
 
 
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss'],
+  animations: [
+    trigger('animateState', [
+      state('shake', style({
+      })),
+      state('noShake',   style({
+      })),
+      transition('noShake => shake', animate('200ms ease-in', keyframes([
+        style({transform: 'translate3d(-4%, 0, 0)', offset: 0.1}),
+        style({transform: 'translate3d(4%, 0, 0)', offset: 0.2}),
+        style({transform: 'translate3d(-4%, 0, 0)', offset: 0.3}),
+        style({transform: 'translate3d(4%, 0, 0)', offset: 0.4}),
+        style({transform: 'translate3d(-4%, 0, 0)', offset: 0.5}),
+        style({transform: 'translate3d(4%, 0, 0)', offset: 0.6}),
+        style({transform: 'translate3d(-4%, 0, 0)', offset: 0.7}),
+        style({transform: 'translate3d(4%, 0, 0)', offset: 0.8}),
+        style({transform: 'translate3d(-4%, 0, 0)', offset: 0.9}),
+      ]))),
+      transition('shake => noShake', animate('250ms ease-in'))
+    ])
+  ]
+  
 })
 export class GameComponent implements OnInit {
   word: any = [];
@@ -37,7 +65,7 @@ export class GameComponent implements OnInit {
       for (var j = 0; j < 5; j++) {
         this.word.push({ letter: '', key: uuidv4() });
       }
-      this.array.push({ word: this.word });
+      this.array.push({ word: this.word, shakeState: "noShake" });
     }
   }
 
@@ -51,7 +79,10 @@ export class GameComponent implements OnInit {
       //clears error messages
       if (this.errorMessage !=""){
         this.errorMessage="";
+        this.array[this.wordCount].shakeState = "noShake";
       }
+      
+
       //converts to upper case
       this.values = event.key.toUpperCase();
       //adds the value to the wordle square
@@ -83,6 +114,7 @@ export class GameComponent implements OnInit {
 
   //erase the last letter
   handleBackspace = () =>{
+
     //check for errors
     if (this.letterCount > 0)
     {
@@ -94,11 +126,15 @@ export class GameComponent implements OnInit {
   }
   //validate word and 
   handleEnter = () =>{
+    
     //check if we have enough letters
     if ( this.letterCount < this.maxLetterCount )
     {
+      
       //handle not enough letters
       this.setErrorMessage("Not enough letters.")
+      //set the shake to true
+      this.array[this.wordCount].shakeState = "shake";
     }
     //not working currently
     else if(this.wordCount == this.maxWordCount)
@@ -107,17 +143,22 @@ export class GameComponent implements OnInit {
       this.setErrorMessage("You lose! Better luck next time!")
     }
     //try the word to see how many letters are correct
-    else if (this.wordCount < this.maxWordCount - 1)
+    else if (this.wordCount < this.maxWordCount)
     {
       //check if word is valid
       if (this.isValidWord())
       {
+        
         this.wordCount++;
         this.letterCount = 0;
       }
       //if word is invalid set error message
       else{         
+        // console.log(this.array);
           this.setErrorMessage("Not in word list!");
+          //set the shake to true
+          this.array[this.wordCount].shakeState = "shake";
+
       }
       
     }
@@ -147,8 +188,16 @@ export class GameComponent implements OnInit {
   }
 
   //handle valid words
+  //ie checks if the letters are in the right spot etc
   handleValidWord()
   {
 
   }
+
+  //returns the colour that the box should be
+  getColour(wordPosition: number)
+  {
+
+  }
+
 }
