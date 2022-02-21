@@ -189,46 +189,73 @@ export class GameComponent implements OnInit {
     }
     return foundWord;
   }
-
+  
   //handle valid words
   //ie checks if the letters are in the right spot etc
   handleValidWord()
   {
-
-    console.log(this.array[this.wordCount].word);
-    //make it grey
+    var hashmap: any = {};
+    // console.log(this.array[this.wordCount].word);
+    //count each letter in the theGuessWord
     for ( var i = 0; i < this.maxLetterCount; i++ )
     {
-      for (var j = 0; j < this.maxLetterCount; j++)
+
+        // console.log(this.array[this.wordCount].word[i].letter);
+        if (hashmap[this.wordleAnswer[i]] == null)
+        {
+            
+            hashmap[this.wordleAnswer[i]] = 1;
+        }
+        else 
+        {
+          hashmap[this.wordleAnswer[i]] += 1;
+        }
+
+      
+    }
+
+    //get all the fully correct answers
+    for ( var i = 0; i < this.maxLetterCount; i++ )
+    {
+      if (this.array[this.wordCount].word[i].letter == this.wordleAnswer[i] )
+      {
+        hashmap[this.array[this.wordCount].word[i].letter] -= 1;
+        this.array[this.wordCount].word[i].correctness = "fullCorrect";
+      }
+      else
+      {
+        this.array[this.wordCount].word[i].correctness = "incorrect";
+      }
+    }
+
+    for ( var i = 0; i < this.maxLetterCount; i++ )
+    {
+      if (this.array[this.wordCount].word[i].letter == this.wordleAnswer[i] )
+      {
+        hashmap[this.array[this.wordCount].word[i].letter] -= 1;
+        this.array[this.wordCount].word[i].correctness = "fullCorrect";
+      }
+      else
       {
         this.array[this.wordCount].word[i].correctness = "incorrect";
       }
     }
 
 
-    for ( var i = 0; i < this.maxLetterCount; i++ )
+    //partial answers
+    for ( var j = 0; j < this.maxLetterCount; j++ )
     {
-      for (var j = 0; j < this.maxLetterCount; j++)
+      for ( var i = 0; i < this.maxLetterCount; i++ )
       {
-        //make it yellow
-        if (this.array[this.wordCount].word[i].letter == this.wordleAnswer.charAt(j))
+        if ( this.array[this.wordCount].word[j].letter == this.wordleAnswer[i] 
+          && hashmap[this.array[this.wordCount].word[j].letter] > 0 
+          && this.array[this.wordCount].word[j].correctness == "incorrect")
         {
-          this.array[this.wordCount].word[i].correctness = "halfCorrect";
+          console.log(this.array[this.wordCount].word[j].letter + ": " + hashmap[this.array[this.wordCount].word[j].letter] );
+          hashmap[this.array[this.wordCount].word[j].letter] -= 1;
+          this.array[this.wordCount].word[j].correctness = "halfCorrect";
         }
-
-        
       }
-    }
-
-
-    for (var i = 0; i < this.maxLetterCount; i++)
-    {
-      //make it green
-      if (this.array[this.wordCount].word[i].letter == this.wordleAnswer.charAt(i))
-      {
-        this.array[this.wordCount].word[i].correctness = "fullCorrect";
-      }
-      
     }
   }
 
