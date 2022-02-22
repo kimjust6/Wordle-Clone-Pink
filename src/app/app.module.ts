@@ -7,12 +7,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavigationComponent } from './component/navigation/navigation.component';
 import { GameComponent } from './component/game/game.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StatisticsComponent } from './component/statistics/statistics.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
-    GameComponent
+    GameComponent,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule,

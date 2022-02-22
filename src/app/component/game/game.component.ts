@@ -195,7 +195,6 @@ export class GameComponent implements OnInit {
   handleValidWord()
   {
     var hashmap: any = {};
-    // console.log(this.array[this.wordCount].word);
     //count each letter in the theGuessWord
     for ( var i = 0; i < this.maxLetterCount; i++ )
     {
@@ -251,7 +250,7 @@ export class GameComponent implements OnInit {
           && hashmap[this.array[this.wordCount].word[j].letter] > 0 
           && this.array[this.wordCount].word[j].correctness == "incorrect")
         {
-          console.log(this.array[this.wordCount].word[j].letter + ": " + hashmap[this.array[this.wordCount].word[j].letter] );
+
           hashmap[this.array[this.wordCount].word[j].letter] -= 1;
           this.array[this.wordCount].word[j].correctness = "halfCorrect";
         }
