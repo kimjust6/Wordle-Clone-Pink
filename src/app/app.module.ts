@@ -8,13 +8,15 @@ import { NavigationComponent } from './component/navigation/navigation.component
 import { GameComponent } from './component/game/game.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StatisticsComponent } from './component/statistics/statistics.component';
+import { NotfoundComponent } from './component/notfound/notfound.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
     GameComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    NotfoundComponent
   ],
   imports: [
     BrowserModule,
