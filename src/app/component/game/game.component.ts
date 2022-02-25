@@ -48,6 +48,8 @@ export class GameComponent implements OnInit {
   errorMessage:string = '';
   wordleAnswer: string = 'CRANE';
   correctness = "";
+  gameOver = false;
+  gameWon = false;
 
   setErrorMessage(message: string){
     this.errorMessage = message;
@@ -74,9 +76,17 @@ export class GameComponent implements OnInit {
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
 
-    
+    //check if game is over
+    if (this.gameOver)
+    {
+      return;
+    }
+
+
+   
+
     //ignores repeat and keys that are not letters
-    if (!event.repeat && this.isLetter(event.key)) {
+    if (!event.repeat && this.isLetter(event.key) ) {
       //clears error messages
       if (this.errorMessage !=""){
         this.errorMessage="";
@@ -142,6 +152,7 @@ export class GameComponent implements OnInit {
     //not working currently
     else if(this.wordCount == this.maxWordCount)
     {
+      console.log(this.wordCount);
       //lose the game
       this.setErrorMessage("You lose! Better luck next time!")
     }
@@ -194,6 +205,7 @@ export class GameComponent implements OnInit {
   //ie checks if the letters are in the right spot etc
   handleValidWord()
   {
+    var correctLetters = 0;
     var hashmap: any = {};
     //count each letter in the theGuessWord
     for ( var i = 0; i < this.maxLetterCount; i++ )
@@ -220,6 +232,7 @@ export class GameComponent implements OnInit {
       {
         hashmap[this.array[this.wordCount].word[i].letter] -= 1;
         this.array[this.wordCount].word[i].correctness = "fullCorrect";
+        ++correctLetters;
       }
       else
       {
@@ -227,42 +240,50 @@ export class GameComponent implements OnInit {
       }
     }
 
-    for ( var i = 0; i < this.maxLetterCount; i++ )
+    // check if we are fully correct
+    if( correctLetters == this.maxLetterCount )
     {
-      if (this.array[this.wordCount].word[i].letter == this.wordleAnswer[i] )
-      {
-        hashmap[this.array[this.wordCount].word[i].letter] -= 1;
-        this.array[this.wordCount].word[i].correctness = "fullCorrect";
-      }
-      else
-      {
-        this.array[this.wordCount].word[i].correctness = "incorrect";
-      }
+      this.gameOver = true;
+      this.gameWon = true;
+      this.setErrorMessage("Win!");
     }
-
-
-    //partial answers
-    for ( var j = 0; j < this.maxLetterCount; j++ )
+    // for ( var i = 0; i < this.maxLetterCount; i++ )
+    // {
+    //   if (this.array[this.wordCount].word[i].letter == this.wordleAnswer[i] )
+    //   {
+    //     hashmap[this.array[this.wordCount].word[i].letter] -= 1;
+    //     this.array[this.wordCount].word[i].correctness = "fullCorrect";
+    //   }
+    //   else
+    //   {
+    //     this.array[this.wordCount].word[i].correctness = "incorrect";
+    //   }
+    // }
+    else
     {
-      for ( var i = 0; i < this.maxLetterCount; i++ )
+      //partial answers
+      for ( var j = 0; j < this.maxLetterCount; j++ )
       {
-        if ( this.array[this.wordCount].word[j].letter == this.wordleAnswer[i] 
-          && hashmap[this.array[this.wordCount].word[j].letter] > 0 
-          && this.array[this.wordCount].word[j].correctness == "incorrect")
+        for ( var i = 0; i < this.maxLetterCount; i++ )
         {
+          if ( this.array[this.wordCount].word[j].letter == this.wordleAnswer[i] 
+            && hashmap[this.array[this.wordCount].word[j].letter] > 0 
+            && this.array[this.wordCount].word[j].correctness == "incorrect")
+          {
 
-          hashmap[this.array[this.wordCount].word[j].letter] -= 1;
-          this.array[this.wordCount].word[j].correctness = "halfCorrect";
+            hashmap[this.array[this.wordCount].word[j].letter] -= 1;
+            this.array[this.wordCount].word[j].correctness = "halfCorrect";
+          }
         }
       }
+
+      if( this.wordCount == this.maxWordCount - 1 )
+      {
+        this.gameOver = true;
+        this.setErrorMessage("Game Over!");
+      }
     }
   }
 
-
-  //returns the colour that the box should be
-  getColour(wordPosition: number)
-  {
-
-  }
-
+  
 }
