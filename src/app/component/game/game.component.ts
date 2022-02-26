@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { HostListener } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
+
 import wordleWords from '../../resources/words.json';
+import { StatisticsComponent } from '../statistics/statistics.component';
 
 import {
   trigger,
@@ -58,7 +61,9 @@ export class GameComponent implements OnInit {
   //setting values for number of words
   readonly maxLetterCount: number = 5;
   readonly maxWordCount: number = 6;
-  constructor() {}
+  constructor(
+    private modalService: NgbModal,
+    ) {}
 
   ngOnInit(): void {
     //setup the array
@@ -245,20 +250,10 @@ export class GameComponent implements OnInit {
     {
       this.gameOver = true;
       this.gameWon = true;
-      this.setErrorMessage("Win!");
+      // this.setErrorMessage("Win!");
+      this.openStatisticsComponent(true);
     }
-    // for ( var i = 0; i < this.maxLetterCount; i++ )
-    // {
-    //   if (this.array[this.wordCount].word[i].letter == this.wordleAnswer[i] )
-    //   {
-    //     hashmap[this.array[this.wordCount].word[i].letter] -= 1;
-    //     this.array[this.wordCount].word[i].correctness = "fullCorrect";
-    //   }
-    //   else
-    //   {
-    //     this.array[this.wordCount].word[i].correctness = "incorrect";
-    //   }
-    // }
+
     else
     {
       //partial answers
@@ -280,9 +275,19 @@ export class GameComponent implements OnInit {
       if( this.wordCount == this.maxWordCount - 1 )
       {
         this.gameOver = true;
-        this.setErrorMessage("Game Over!");
+        // this.setErrorMessage("Game Over!");
+        this.openStatisticsComponent(false);
       }
     }
+  }
+
+  //open game over modal
+  openStatisticsComponent(didWin: boolean) {
+    const modalRef = this.modalService.open(StatisticsComponent, {
+      
+    });
+    //pass didWin to StatisticsComponent
+    modalRef.componentInstance.didWin = didWin;
   }
 
   
