@@ -1,17 +1,30 @@
-<!-- Modal content -->
-<!-- <div *ngIf="didWin"> -->
-<div class="modal-content">
-  <div class="modal-header">
-    <h2>Congratulations!</h2>
-    <span class="close"
-    (click)="handleClose()"
-    >&times;</span>
-  </div>
-  <div class="modal-body">
-    <p>You have have solved today's wordle!</p>
-  </div>
-  <!-- <div class="modal-footer"> -->
+<!-- Modal content for winning-->
+<div *ngIf="didWin; else elseBlock">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Congratulations!</h2>
+      <span class="close" (click)="handleClose()">&times;</span>
+    </div>
+    <div class="modal-body">
+      <p>You have have solved today's wordle!</p>
+    </div>
+    <!-- <div class="modal-footer"> -->
     <!-- <h3>Modal Footer</h3> -->
-  <!-- </div> -->
+    <!-- </div> -->
+  </div>
 </div>
-<!-- </div> -->
+
+<!-- Modal content for winning-->
+<ng-template #elseBlock> 
+    <div class="modal-content">
+        <div class="modal-header">
+          <h2>Better luck next time!</h2>
+          <span class="close" (click)="handleClose()">&times;</span>
+        </div>
+        <div class="modal-body">
+          <p>You did not solve today's wordle.
+          Try again!</p>
+        </div>
+
+      </div>
+</ng-template>

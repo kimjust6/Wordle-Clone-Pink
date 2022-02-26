@@ -283,11 +283,26 @@ export class GameComponent implements OnInit {
 
   //open game over modal
   openStatisticsComponent(didWin: boolean) {
-    const modalRef = this.modalService.open(StatisticsComponent, {
+    const modalRef = this.modalService.open(StatisticsComponent, 
+      { 
+        backdrop:false
       
-    });
+      });
+
     //pass didWin to StatisticsComponent
-    modalRef.componentInstance.didWin = didWin;
+    (<StatisticsComponent>modalRef.componentInstance).didWin = didWin;
+    (<StatisticsComponent>modalRef.componentInstance).modalRef = modalRef;
+    
+
+
+
+    // modalRef.result.then((result) => {
+    //   console.log(result);
+    // }).catch( (result) => {
+    //   console.log(result);
+    // });
+
+
   }
 
   

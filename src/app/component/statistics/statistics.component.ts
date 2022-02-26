@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, ElementRef } from '@angular/core';
+
+
 
 @Component({
   selector: 'app-statistics',
@@ -6,12 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./statistics.component.scss']
 })
 export class StatisticsComponent implements OnInit {
-
+  
+  @Input() didWin: any;
+  @Input() modalRef: any;
   constructor() { }
 
   ngOnInit(): void {
     
   }
   handleClose()
-  { }
+  { 
+    // this.IsmodelShow = true;
+    this.modalRef.close();
+  }
 }
