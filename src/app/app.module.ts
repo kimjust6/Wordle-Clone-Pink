@@ -9,6 +9,8 @@ import { GameComponent } from './component/game/game.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StatisticsComponent } from './component/statistics/statistics.component';
 import { NotfoundComponent } from './component/notfound/notfound.component';
+import { ValidWordsComponent } from './component/valid-words/valid-words.component';
+import { SolverComponent } from './component/solver/solver.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { NotfoundComponent } from './component/notfound/notfound.component';
     NavigationComponent,
     GameComponent,
     StatisticsComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    ValidWordsComponent,
+    SolverComponent
   ],
   imports: [
     BrowserModule,
