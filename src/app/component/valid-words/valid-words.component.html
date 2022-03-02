@@ -1,8 +1,15 @@
-<div *ngFor="let word of wordleWords">
-    <ul>
-        <li>
-            {{word.wordle}}
-        </li>
-    </ul>
+<div class="validWordsComponent">
+    <h1>Potential Words</h1>
+    <div class="validWords">
+        <div *ngFor="let word of wordleWords; let i = index">
+            <div class="word">
+                <li key="{word.key}">
+                    <!-- {{i+1}}) {{word.wordle}} -->
+                    {{word.wordle}}
+                </li>
+            </div>
+            
+        </div>
 
+    </div>
 </div>

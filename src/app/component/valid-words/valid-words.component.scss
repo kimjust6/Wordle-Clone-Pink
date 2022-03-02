@@ -1,0 +1,18 @@
+.validWordsComponent{
+    display: flex;
+    flex-direction: column;
+}
+
+.validWords{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    
+    list-style: none;
+    li{
+        // max-width: fit-content;
+        min-width: 100px;
+    }
+
+
+}
