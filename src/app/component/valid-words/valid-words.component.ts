@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoadWordsService } from 'src/services/load-words.service';
 
 @Component({
   selector: 'app-valid-words',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ValidWordsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private wordleWord: LoadWordsService) { }
 
+  wordleWords: any;
   ngOnInit(): void {
+    this.wordleWords = this.wordleWord.getWords();
+    // console.log(this.wordleWords);
   }
+
+
 
 }

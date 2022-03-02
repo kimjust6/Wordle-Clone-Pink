@@ -3,7 +3,7 @@ import { HostListener } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
 
-import wordleWords from '../../resources/words.json';
+// import wordleWords from '../../resources/words.json';
 import { LoadWordsService } from 'src/services/load-words.service';
 import { StatisticsComponent } from '../statistics/statistics.component';
 

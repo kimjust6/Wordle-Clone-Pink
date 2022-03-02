@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ValidWordsComponent } from '../valid-words/valid-words.component';
 
 @Component({
   selector: 'app-solver',
