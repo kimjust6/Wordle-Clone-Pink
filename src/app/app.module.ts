@@ -11,6 +11,7 @@ import { StatisticsComponent } from './component/statistics/statistics.component
 import { NotfoundComponent } from './component/notfound/notfound.component';
 import { ValidWordsComponent } from './component/valid-words/valid-words.component';
 import { SolverComponent } from './component/solver/solver.component';
+import { AnagramComponent } from './anagram/anagram.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { SolverComponent } from './component/solver/solver.component';
     StatisticsComponent,
     NotfoundComponent,
     ValidWordsComponent,
-    SolverComponent
+    SolverComponent,
+    AnagramComponent
   ],
   imports: [
     BrowserModule,
