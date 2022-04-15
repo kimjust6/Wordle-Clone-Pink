@@ -50,7 +50,7 @@ export class GameComponent implements OnInit {
   wordCount: number = 0;
   letterCount: number = 0;
   errorMessage:string = '';
-  wordleAnswer: string = 'CRANE';
+  wordleAnswer: string = 'CHUNK';
   correctness = "";
   gameOver = false;
   gameWon = false;
