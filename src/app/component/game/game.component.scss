@@ -1,65 +1,54 @@
 @import "../../../styles.scss";
 
-.container{
-    transition-duration: 1s;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 70vh;
-    flex-direction: column;
-    .errorSpaceHolder{
-        min-height: 70px;
-    }
-    .fullWord{
-        // ul:hover{
-        //     animation: sideToSide 0.20s;
-        //     animation-iteration-count: 2;
-        // }
-        // background-color: pink;
-        ul{
-            
-            column-count: 5;
-            display: flex;
-            list-style: none;
-            // background-color: pink;
-            margin: 0;
-            padding: 0;
-            .letterContainer{
-
-                .singleLetter{
-                    color: black;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    font-size: x-large;
-                    
-                    border: 2px;
-                    font-weight: 600;
-                    border-style: solid;
-                    border-color: $words-border-color;
-                    margin-top: $words-margin + $words-margin;
-                    margin-left: $words-margin;
-                    margin-right: $words-margin;
-                    min-width: $words-box-size;
-                    min-height: $words-box-size;
-                    
-                }
-                #halfCorrect{
-                    background-color: $halfCorrect;
-                    color: white;
-                }
-                #fullCorrect{
-                    background-color: $fullCorrect;
-                    color: white;
-                }
-                #incorrect{
-                    background-color: $incorrect;
-                    color: white;
-                }
-            }
-        }
-    }
+.container {
+  transition-duration: 1s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+  flex-direction: column;
 }
 
+.container .errorSpaceHolder {
+  min-height: 70px;
+}
 
+.container .fullWord ul {
+  column-count: 5;
+  display: flex;
+  list-style: none;
+  // background-color: pink;
+  margin: 0;
+  padding: 0;
+}
+.container .fullWord ul .singleLetter {
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: x-large;
 
+  border: 2px;
+  font-weight: 600;
+  border-style: solid;
+  border-color: $words-border-color;
+  margin-top: $words-margin + $words-margin;
+  margin-left: $words-margin;
+  margin-right: $words-margin;
+  min-width: $words-box-size;
+  min-height: $words-box-size;
+}
+
+.container .fullWord ul .letterContainer #incorrect {
+  background-color: $incorrect;
+  color: white;
+}
+
+.container .fullWord ul .letterContainer #halfCorrect {
+  background-color: $halfCorrect;
+  color: white;
+}
+.container .fullWord ul .letterContainer #fullCorrect {
+  background-color: $fullCorrect;
+  color: white;
+}
