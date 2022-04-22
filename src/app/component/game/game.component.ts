@@ -295,15 +295,8 @@ export class GameComponent implements OnInit {
     //pass didWin to StatisticsComponent
     (<StatisticsComponent>modalRef.componentInstance).didWin = didWin;
     (<StatisticsComponent>modalRef.componentInstance).modalRef = modalRef;
-    
-
-
-
-    // modalRef.result.then((result) => {
-    //   console.log(result);
-    // }).catch( (result) => {
-    //   console.log(result);
-    // });
+    (<StatisticsComponent>modalRef.componentInstance).array = this.array;
+  
 
 
   }

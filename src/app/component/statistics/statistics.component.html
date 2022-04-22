@@ -6,25 +6,22 @@
       <span class="close" (click)="handleClose()">&times;</span>
     </div>
     <div class="modal-body">
-      <p>You have have solved today's wordle!</p>
+      <p>You have have solved today's wordle!    </p>
+      <button type="button" class="btn btn-success">Share</button>
     </div>
-    <!-- <div class="modal-footer"> -->
-    <!-- <h3>Modal Footer</h3> -->
-    <!-- </div> -->
   </div>
 </div>
 
-<!-- Modal content for winning-->
-<ng-template #elseBlock> 
-    <div class="modal-content">
-        <div class="modal-header">
-          <h2>Better luck next time!</h2>
-          <span class="close" (click)="handleClose()">&times;</span>
-        </div>
-        <div class="modal-body">
-          <p>You did not solve today's wordle.
-          Try again!</p>
-        </div>
-
-      </div>
+<!-- Modal content for losing-->
+<ng-template #elseBlock>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Better luck next time!</h2>
+      <span class="close" (click)="handleClose()">&times;</span>
+    </div>
+    <div class="modal-body">
+      <p>You did not solve today's wordle. Try again!</p>
+      <button type="button" class="btn btn-danger">Share</button>
+    </div>
+  </div>
 </ng-template>
