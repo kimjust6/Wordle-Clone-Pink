@@ -13,6 +13,7 @@ import { ValidWordsComponent } from './component/valid-words/valid-words.compone
 import { SolverComponent } from './component/solver/solver.component';
 import { AnagramComponent } from './anagram/anagram.component';
 import { ClipboardModule } from 'ngx-clipboard';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,7 @@ import { ClipboardModule } from 'ngx-clipboard';
     BrowserAnimationsModule,
     ClipboardModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

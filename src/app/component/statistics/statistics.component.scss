@@ -28,6 +28,7 @@
   align-items: center;
   padding: 2px 16px;
   min-height: 100px;
+  flex-direction: column;
   //   margin: 3px 4px;
 }
 
@@ -50,6 +51,7 @@
   animation-name: animatetop;
   animation-duration: 1.5s;
 }
+
 
 /* Add Animation */
 @keyframes animatetop {

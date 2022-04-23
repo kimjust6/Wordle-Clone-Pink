@@ -27,8 +27,8 @@ export class ValidWordsComponent implements OnInit {
       
  
     }
-    this.contains("a");
-    this.doesNotContain("b");
+    // this.contains("a");
+    // this.doesNotContain("b");
     
   }
 

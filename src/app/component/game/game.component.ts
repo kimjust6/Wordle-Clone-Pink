@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HostListener } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
+import { DatePipe } from '@angular/common';
 
 // import wordleWords from '../../resources/words.json';
 import { LoadWordsService } from 'src/services/load-words.service';
@@ -55,6 +56,7 @@ export class GameComponent implements OnInit {
   correctness = "";
   gameOver = false;
   gameWon = false;
+  wordleNumber: any;
 
   setErrorMessage(message: string){
     this.errorMessage = message;
@@ -65,7 +67,8 @@ export class GameComponent implements OnInit {
   readonly maxWordCount: number = 6;
   constructor(
     private modalService: NgbModal,
-    private wordleWord: LoadWordsService
+    private wordleWord: LoadWordsService,
+    public datepipe: DatePipe
      
     ) {}
 
@@ -292,8 +295,16 @@ export class GameComponent implements OnInit {
       
       });
 
+    //get the game number for today
+    let startDate = new Date("2021-06-19T11:59:59");
+    let today = new Date();
+    this.wordleNumber = Math.floor((today.getTime() - startDate.getTime())/3600/24/1000);
+
+
+
     //create the ascii array that will be copied onclick
-    this.asciiPattern += "Wordle XXX ";
+    this.asciiPattern += "Wordle " + this.wordleNumber + " ";
+    
     this.asciiPattern += (this.wordCount+1);
     this.asciiPattern += "/" + this.maxWordCount + "\n";
       for (var i = 0; i < this.wordCount+1; i++)

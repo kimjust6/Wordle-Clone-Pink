@@ -11,10 +11,10 @@ export class StatisticsComponent implements OnInit {
   @Input() modalRef: any;
   @Input() asciiPattern: any = [];
   constructor() {}
+  // wordleNumber: any;
 
   ngOnInit(): void {
-    console.log("In stats: Array: ");
-    console.log(this.asciiPattern);
+
   }
   handleClose() {
     // this.IsmodelShow = true;
