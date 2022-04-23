@@ -46,6 +46,7 @@ import {
 export class GameComponent implements OnInit {
   word: any = [];
   array: any = [];
+  asciiPattern: string = "";
   values: string = '';
   wordCount: number = 0;
   letterCount: number = 0;
@@ -232,7 +233,6 @@ export class GameComponent implements OnInit {
 
       
     }
-
     //get all the fully correct answers
     for ( var i = 0; i < this.maxLetterCount; i++ )
     {
@@ -292,10 +292,37 @@ export class GameComponent implements OnInit {
       
       });
 
+    //create the ascii array that will be copied onclick
+    this.asciiPattern += "Wordle XXX ";
+    this.asciiPattern += (this.wordCount+1);
+    this.asciiPattern += "/" + this.maxWordCount + "\n";
+      for (var i = 0; i < this.wordCount+1; i++)
+      {
+        for(var j = 0; j < this.maxLetterCount; j++)
+        {
+          if(this.array[i].word[j].correctness === "fullCorrect")
+          {
+            console.log("green");
+            this.asciiPattern += "🟩";
+          }
+          else if (this.array[i].word[j].correctness === "halfCorrect")
+          {
+            this.asciiPattern += "🟨";
+          }
+          else
+          {
+            this.asciiPattern += "⬜";
+          }
+          
+        }
+        this.asciiPattern += "\n";
+      }
+      console.log(this.asciiPattern);
+
     //pass didWin to StatisticsComponent
     (<StatisticsComponent>modalRef.componentInstance).didWin = didWin;
     (<StatisticsComponent>modalRef.componentInstance).modalRef = modalRef;
-    (<StatisticsComponent>modalRef.componentInstance).array = this.array;
+    (<StatisticsComponent>modalRef.componentInstance).asciiPattern = this.asciiPattern;
   
 
 

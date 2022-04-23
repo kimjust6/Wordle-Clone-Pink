@@ -12,6 +12,7 @@ import { NotfoundComponent } from './component/notfound/notfound.component';
 import { ValidWordsComponent } from './component/valid-words/valid-words.component';
 import { SolverComponent } from './component/solver/solver.component';
 import { AnagramComponent } from './anagram/anagram.component';
+import { ClipboardModule } from 'ngx-clipboard';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AnagramComponent } from './anagram/anagram.component';
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ClipboardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
