@@ -3,8 +3,8 @@
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 
-$words-margin: 4px;
-$words-box-size: 60px;
+$words-margin: 0.5vh;
+$words-box-size: 8.75vh;
 $words-border-color: grey;
 $fullCorrect: #4da930;
 $halfCorrect: rgb(207, 176, 40);
