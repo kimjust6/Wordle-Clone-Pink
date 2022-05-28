@@ -1,6 +1,6 @@
 # WordleClone
 
-This project was coded purely in angular.
+This project was coded in angular.
 
 ## Description
 
