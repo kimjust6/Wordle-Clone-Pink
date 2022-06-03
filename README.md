@@ -1,6 +1,6 @@
 # WordleClone
 
-This project was coded in angular.
+This project was coded in angular and uses boostrap for styling.
 
 ## Description
 
