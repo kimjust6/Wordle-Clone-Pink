@@ -34,7 +34,6 @@ export class ValidWordsComponent implements OnInit {
 
   contains(c: string)
   {
-    console.log(c);
     this.wordleWords = this.wordleWords.filter((e: { wordle: string | any[]; }) =>{
       return e.wordle.includes(c);
 
@@ -43,7 +42,6 @@ export class ValidWordsComponent implements OnInit {
 
   doesNotContain(c: string)
   {
-    console.log(c);
     this.wordleWords = this.wordleWords.filter((e: { wordle: string | any[]; }) =>{
       return !e.wordle.includes(c);
 
