@@ -4,15 +4,16 @@
       {{ errorMessage }}
     </div>
   </div>
-  <div class="fullWord" *ngFor="let fullWord of array" >
+  <div class="fullWord" *ngFor="let fullWord of array">
     <ul [@animateState]="fullWord.shakeState">
-      
-      
-      <div *ngFor="let letters of fullWord.word; let index = index" >
-        
+      <div *ngFor="let letters of fullWord.word; let index = index">
         <div class="letterContainer">
           <div>
-            <li class="singleLetter" [id]="letters.correctness" key="{ letters.key }; let innerIndex = index">
+            <li
+              class="singleLetter"
+              [id]="commonService.correctnessToString(letters.correctness)"
+              key="{ letters.key }; let innerIndex = index"
+            >
               {{ letters.letter }}
             </li>
           </div>
@@ -21,3 +22,4 @@
     </ul>
   </div>
 </div>
+<app-keyboard></app-keyboard>

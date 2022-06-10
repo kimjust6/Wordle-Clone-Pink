@@ -1,0 +1,20 @@
+<div class="container keyboard">
+  <ul class="list-none">
+    <div
+      class="row"
+      *ngFor="let row of keyboardArray; let rowIndex = index"
+      [id]="getRowStyle(rowIndex)"
+    >
+      <div
+        class="letter"
+        *ngFor="let letter of row.row"
+        (click)="keyboardHandler(letter)"
+        [id]="styleArray[letter]"
+      >
+        <li>
+          {{ letter }}
+        </li>
+      </div>
+    </div>
+  </ul>
+</div>

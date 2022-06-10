@@ -5,19 +5,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 60vh;
+  height: 65vh;
   flex-direction: column;
 }
 
-.container .errorSpaceHolder {
-  min-height: 70px;
-}
+// .container .errorSpaceHolder {
+  // min-height: 70px;
+// }
 
 .container .fullWord ul {
   column-count: 5;
   display: flex;
   list-style: none;
-  // background-color: pink;
   margin: 0;
   padding: 0;
 }
@@ -41,14 +40,14 @@
 
 .container .fullWord ul .letterContainer #incorrect {
   background-color: $incorrect;
-  color: white;
+  color: $letterColor;
 }
 
 .container .fullWord ul .letterContainer #halfCorrect {
   background-color: $halfCorrect;
-  color: white;
+  color: $letterColor;
 }
 .container .fullWord ul .letterContainer #fullCorrect {
   background-color: $fullCorrect;
-  color: white;
+  color: $letterColor;
 }

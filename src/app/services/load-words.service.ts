@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import wordleWords from '../app/resources/words.json';
+import wordleWords from '../resources/words.json';
 
 
 @Injectable({

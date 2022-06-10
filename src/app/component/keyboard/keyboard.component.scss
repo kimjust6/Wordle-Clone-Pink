@@ -1,0 +1,66 @@
+@import "../../../styles.scss";
+
+.container {
+  //   background-color: $fullCorrect;
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  padding: 0;
+  //   width: max-content;
+  //   align-items: center;
+}
+
+.list-none {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  margin-left: 4vw;
+  //   margin-right:2vw;
+  //   background-color: orange;
+  width: 100%;
+}
+
+.letter {
+  // don't let users select the text
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+
+  cursor: pointer;
+  border: 1px;
+  border-radius: 10px;
+  border-style: solid;
+  min-width: 9%;
+  min-height: 5vh;
+  margin-top: 0.5%;
+  margin-bottom: 0.5%;
+  margin-left: 0.5%;
+  margin-right: 0.5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#oddKeyboard {
+  // background-color: green;
+  margin-left: 3.1%;
+  width: 101.5%;
+}
+#evenKeyboard {
+  margin-right: 0.5%;
+}
+
+#incorrect {
+  background-color: $incorrect;
+  color: $letterColor;
+}
+
+#halfCorrect {
+  background-color: $halfCorrect;
+  color: $letterColor;
+}
+
+#fullCorrect {
+  background-color: $fullCorrect;
+  color: $letterColor;
+}

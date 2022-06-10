@@ -4,13 +4,16 @@
 @import '~bootstrap/scss/bootstrap';
 
 $words-margin: 0.5vh;
-$words-box-size: 8.75vh;
+$words-box-size: 8vh;
 $words-border-color: grey;
-$fullCorrect: #4da930;
-$halfCorrect: rgb(207, 176, 40);
-$incorrect: rgb(139, 139, 139);
+// $fullCorrect: #77DD77;
+$halfCorrect: rgb(224, 201, 98);
 
+$fullCorrect: #6ecc6e;
+// $halfCorrect: #D198B7;
+$incorrect: rgb(161, 161, 161);
 
+$letterColor: rgb(255, 255, 255);
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

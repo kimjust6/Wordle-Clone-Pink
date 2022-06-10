@@ -3,10 +3,13 @@ import { HostListener } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
 import { DatePipe } from '@angular/common';
+import { Subscription } from 'rxjs';
 
-// import wordleWords from '../../resources/words.json';
-import { LoadWordsService } from 'src/services/load-words.service';
+import { EmitterService } from 'src/app/services/emitter.service';
+import { LoadWordsService } from 'src/app/services/load-words.service';
+import { CommonService } from 'src/app/services/common.service';
 import { StatisticsComponent } from '../statistics/statistics.component';
+import { correctness, kbCorrectness } from 'src/app/utilities/interfaces';
 
 import {
   trigger,
@@ -28,7 +31,7 @@ import {
       transition(
         'noShake => shake',
         animate(
-          '200ms ease-in',
+          '250ms ease-in',
           keyframes([
             style({ transform: 'translate3d(-4%, 0, 0)', offset: 0.1 }),
             style({ transform: 'translate3d(4%, 0, 0)', offset: 0.2 }),
@@ -47,6 +50,7 @@ import {
   ],
 })
 export class GameComponent implements OnInit {
+  private subscriptions: Subscription[] = [];
   word: any = [];
   array: any = [];
   asciiPattern: string = '';
@@ -78,12 +82,31 @@ export class GameComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private wordleWord: LoadWordsService,
+    private emitterService: EmitterService,
+    public commonService: CommonService,
     public datepipe: DatePipe
   ) {
     this.getRandomWordle();
   }
 
+  ngOnDestroy() {
+    for (let sub of this.subscriptions) {
+      sub.unsubscribe();
+    }
+  }
   ngOnInit(): void {
+    // subscribe to keypresses on virtual keyboard
+    this.subscriptions.push(
+      this.emitterService.keyStrokeCtrlItem$.subscribe((keyStroke: string) => {
+        if (keyStroke?.length === 1) {
+          this.insertValue(keyStroke);
+        } else if (keyStroke === 'ENTER') {
+          this.handleEnter();
+        } else if (keyStroke === '<- BACK') {
+          this.handleBackspace();
+        }
+      })
+    );
     // check if array is store in local storage
     let myArrayString = localStorage.getItem(this.LOCAL_STORAGE_ARRAY);
     if (myArrayString) {
@@ -93,12 +116,12 @@ export class GameComponent implements OnInit {
       this.wordCount = 0;
       for (let element of this.array) {
         // check if the letter is occupied, if it is, increment wordCount
+        // if (element.word[this.maxLetterCount - 1].correctness !== '') {
         if (element.word[this.maxLetterCount - 1].correctness !== '') {
           ++this.wordCount;
         }
         if (this.wordCount === this.maxWordCount) {
           this.wordCount = 0;
-          // localStorage.clear();
           this.clearLocalStorage();
           this.getRandomWordle();
         }
@@ -116,12 +139,20 @@ export class GameComponent implements OnInit {
     }
   }
 
+  /**
+   * @name clearLocalStorage
+   * @description handles clearing all the local storage
+   */
   clearLocalStorage() {
     localStorage.removeItem(this.LOCAL_STORAGE_ARRAY);
     localStorage.removeItem(this.LOCAL_STORAGE_WORDLE_ANSWER);
     localStorage.clear();
   }
 
+  /**
+   * @name getRandomWordle
+   * @description gets a random word from the word and
+   */
   getRandomWordle() {
     // get all the wordle words
     this.allWordleWords = this.wordleWord.getWords();
@@ -134,17 +165,19 @@ export class GameComponent implements OnInit {
     } else {
       this.wordleAnswer =
         this.allWordleWords[
-          this.getRandomInt(this.allWordleWords.length)
+          this.commonService.getRandomInt(this.allWordleWords.length)
         ].wordle.toUpperCase();
       localStorage.setItem(this.LOCAL_STORAGE_WORDLE_ANSWER, this.wordleAnswer);
     }
   }
+
+  /**
+   * @name setErrorMessage
+   * @description sets the error message on the screen
+   * @param message the message that is to be displayed
+   */
   setErrorMessage(message: string) {
     this.errorMessage = message;
-  }
-
-  getRandomInt(max: number) {
-    return Math.floor(Math.random() * max);
   }
 
   //on keypressdown for the whole page
@@ -179,30 +212,48 @@ export class GameComponent implements OnInit {
       this.handleEnter();
     }
   }
-  //insert the typed key into the json
-  insertValue = (letter: String) => {
+
+  /**
+   * @name insertValue
+   * @description method that inserts the keystroke into the json object/array
+   * @param letter the letter to be inserted
+   */
+  insertValue(letter: String) {
     if (this.letterCount < this.maxLetterCount) {
       this.array[Math.floor(this.wordCount)].word[this.letterCount].letter =
         letter;
       ++this.letterCount;
     }
-  };
-  //function that checks if input is letters
+  }
+
+  /**
+   * @name isLetter
+   * @description method that checks if input is letters
+   * @param str
+   * @returns boolean: true if is a letter, false otherwise
+   */
   isLetter = function (str: String) {
     return str.length === 1 && str.match(/[a-zA-Z]/i);
   };
 
-  //erase the last letter
-  handleBackspace = () => {
+  /**
+   * @name handleBackspace
+   * @description method that erases the last letter
+   */
+  handleBackspace() {
     //check for errors
     if (this.letterCount > 0) {
       --this.letterCount;
       // erase the last value and decrement
       this.array[Math.floor(this.wordCount)].word[this.letterCount].letter = '';
     }
-  };
-  //validate word and
-  handleEnter = () => {
+  }
+
+  /**
+   * @name handleEnter
+   * @desc validates word and lights up letters if is valid word
+   */
+  handleEnter() {
     //check if we have enough letters
     if (this.letterCount < this.maxLetterCount) {
       //handle not enough letters
@@ -229,10 +280,14 @@ export class GameComponent implements OnInit {
         this.array[this.wordCount].shakeState = 'shake';
       }
     }
-  };
+  }
 
-  // loop through words to see if word attempted is valid
-  isValidWord = () => {
+  /**
+   * @name isValidWord
+   * @description loops through wordle words to see if submitted word is valid
+   * @returns boolean: true if is valid, false otherwise
+   */
+  isValidWord() {
     var foundWord = false;
     //construct the word from the array
     var theGuessWord = '';
@@ -250,10 +305,12 @@ export class GameComponent implements OnInit {
       }
     }
     return foundWord;
-  };
+  }
 
-  //handle valid words
-  //ie checks if the letters are in the right spot etc
+  /**
+   * @name handleValidWord
+   * @description checks if the letters are in the right spot etc (ie yellow or green)
+   */
   handleValidWord() {
     var correctLetters = 0;
     var hashmap: any = {};
@@ -269,10 +326,21 @@ export class GameComponent implements OnInit {
     for (var i = 0; i < this.maxLetterCount; i++) {
       if (this.array[this.wordCount].word[i].letter == this.wordleAnswer[i]) {
         hashmap[this.array[this.wordCount].word[i].letter] -= 1;
-        this.array[this.wordCount].word[i].correctness = 'fullCorrect';
+        this.array[this.wordCount].word[i].correctness =
+          correctness.fullCorrect;
+        // create the variable to be emitted
+        this.emitKB(
+          this.array[this.wordCount].word[i].letter,
+          correctness.fullCorrect
+        );
+
         ++correctLetters;
       } else {
-        this.array[this.wordCount].word[i].correctness = 'incorrect';
+        this.array[this.wordCount].word[i].correctness = correctness.incorrect;
+        this.emitKB(
+          this.array[this.wordCount].word[i].letter,
+          correctness.incorrect
+        );
       }
     }
 
@@ -289,17 +357,24 @@ export class GameComponent implements OnInit {
           if (
             this.array[this.wordCount].word[j].letter == this.wordleAnswer[i] &&
             hashmap[this.array[this.wordCount].word[j].letter] > 0 &&
-            this.array[this.wordCount].word[j].correctness == 'incorrect'
+            this.array[this.wordCount].word[j].correctness ==
+              correctness.incorrect
           ) {
             hashmap[this.array[this.wordCount].word[j].letter] -= 1;
-            this.array[this.wordCount].word[j].correctness = 'halfCorrect';
+            this.array[this.wordCount].word[j].correctness =
+              correctness.halfCorrect;
+
+            this.emitKB(
+              this.array[this.wordCount].word[j].letter,
+              correctness.halfCorrect
+            );
           }
         }
       }
 
       if (this.wordCount == this.maxWordCount - 1) {
         this.gameOver = true;
-        this.updateStats(this.wordCount);
+        this.updateStats(this.wordCount + 1);
         // this.setErrorMessage("Game Over!");
         this.openStatisticsComponent(false);
       }
@@ -313,6 +388,11 @@ export class GameComponent implements OnInit {
     }
   }
 
+  /**
+   * @name updateStats
+   * @description updates the array of stats in localStorage
+   * @param result the result of the last game (which will be stored)
+   */
   updateStats(result: number) {
     // update the stats localstorage
     let tempStats = localStorage.getItem(this.LOCAL_STORAGE_STATS);
@@ -326,7 +406,7 @@ export class GameComponent implements OnInit {
       }
     }
     // push the current result into the array
-    ++tempStatsArr[this.wordCount - 1];
+    ++tempStatsArr[result];
     this.clearLocalStorage();
     localStorage.setItem(
       this.LOCAL_STORAGE_STATS,
@@ -334,7 +414,11 @@ export class GameComponent implements OnInit {
     );
   }
 
-  //open game over modal
+  /**
+   * @name openStatisticsComponent
+   * @description the modal/dialog that will open when the game is over
+   * @param didWin boolean that passes if user won or not
+   */
   openStatisticsComponent(didWin: boolean) {
     const modalRef = this.modalService.open(StatisticsComponent, {
       backdrop: false,
@@ -354,9 +438,11 @@ export class GameComponent implements OnInit {
     this.asciiPattern += '/' + this.maxWordCount + '\n';
     for (var i = 0; i < this.wordCount + 1; ++i) {
       for (var j = 0; j < this.maxLetterCount; ++j) {
-        if (this.array[i].word[j].correctness === 'fullCorrect') {
+        if (this.array[i].word[j].correctness === correctness.fullCorrect) {
           this.asciiPattern += '🟩';
-        } else if (this.array[i].word[j].correctness === 'halfCorrect') {
+        } else if (
+          this.array[i].word[j].correctness === correctness.halfCorrect
+        ) {
           this.asciiPattern += '🟨';
         } else {
           this.asciiPattern += '⬜';
@@ -370,5 +456,15 @@ export class GameComponent implements OnInit {
     (<StatisticsComponent>modalRef.componentInstance).modalRef = modalRef;
     (<StatisticsComponent>modalRef.componentInstance).asciiPattern =
       this.asciiPattern;
+  }
+
+  emitKB(_letter: string, _correctness: correctness) {
+    // create the variable to be emitted
+    let myKBCorrectness: kbCorrectness = {
+      letter: _letter,
+      correctness: _correctness,
+    };
+    // emit the variable
+    this.emitterService.loadKBCorrectnessCtrl(myKBCorrectness);
   }
 }
