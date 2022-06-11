@@ -37,7 +37,6 @@ export class KeyboardComponent implements OnInit {
           if (
             kbCor.correctness === correctness.fullCorrect ||
             typeof this.styleArray[kbCor.letter] === 'undefined'
-            // || this.styleArray[kbCor.letter] > kbCor.correctness
           ) {
             this.styleArray[kbCor.letter] =
               this.commonService.correctnessToString(kbCor.correctness);
