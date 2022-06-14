@@ -1,19 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
 
 /* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";
 
 $words-margin: 0.5vh;
 $words-box-size: 8vh;
-$words-border-color: grey;
-// $fullCorrect: #77DD77;
-$halfCorrect: rgb(224, 201, 98);
-
-$fullCorrect: #6ecc6e;
-// $halfCorrect: #D198B7;
-$incorrect: rgb(161, 161, 161);
-
+$words-border-color: #6F3055;
+$halfCorrect: #f5bfcb;
+$fullCorrect: #F66FB2;
+$incorrect: #993f69;
 $letterColor: rgb(255, 255, 255);
+// $words-border-color: grey;
+// $halfCorrect: rgb(224, 201, 98);
+// $fullCorrect: #6ecc6e;
+// $incorrect: rgb(161, 161, 161);
+// $letterColor: rgb(255, 255, 255);
+$backgroundColor: #fff5f6;
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: $backgroundColor;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
